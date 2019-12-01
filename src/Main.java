@@ -19,12 +19,15 @@ public void Game() {
 	
 	Scanner input = new Scanner(System.in);
 	Piece table[][] = new Piece [9][9];
+	
 	Boolean salir = true;
 	board.fillBoard(table);
-	board.initCapture();
+	board.initCaptureBlack();
+	board.initCaptureWhite();
+	
 	while (salir) {
 		
-		board.PrintBoard(table);
+		board.PrintBoard(table,currentPlayer);
 		System.out.print(currentPlayer+" turn ");
 		System.out.println("From (row col):");
 		Move move = new Move();
@@ -32,10 +35,15 @@ public void Game() {
 		
 		try {
 		if(posicionInicial.contains(" ")) {
+			Piece selectedPiece=null;
 			String[] position = posicionInicial.trim().split(" ");
 			int x = Integer.parseInt(position[0]);
 			int y = Integer.parseInt(position[1]);
-			Piece selectedPiece = table[x][y];
+			if(x==9) {
+				selectedPiece = board.ReInsertCapture(y);}
+			else {			
+				selectedPiece = table[x][y];}
+
 			move.isPromote(table, selectedPiece);
 			System.out.println("You select "+selectedPiece.getPiece());
 			System.out.println("NewPostion (row col):");
@@ -45,7 +53,12 @@ public void Game() {
 				String[] positionNueva = posicionNueva.trim().split(" ");
 				int newX = Integer.parseInt(positionNueva[0]);
 				int newY = Integer.parseInt(positionNueva[1]);
-				move.MoveOn(selectedPiece,x, y, newX, newY, table, currentPlayer);
+				
+				if(x==9) {
+					move.ReInsert(selectedPiece,x, y, newX, newY, table, currentPlayer,board);
+				}else {
+				move.MoveOn(selectedPiece,x, y, newX, newY, table, currentPlayer,board);}
+				
 				if(currentPlayer=="white") {
 					currentPlayer="black";
 				}else {currentPlayer="white";}

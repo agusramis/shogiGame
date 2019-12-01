@@ -6,19 +6,19 @@ public class Move {
 	public Move() {
 	}
 
-	public Piece MoveOn(Piece selectedPiece, int x, int y, int newX, int newY, Piece[][] table, String player) {
+	public Piece MoveOn(Piece selectedPiece, int x, int y, int newX, int newY, Piece[][] table, String player,Board capture) {
 
 		if (isPromote(table, selectedPiece)) {
 			System.out.println("Do you want to promote your piece " + selectedPiece.getPiece() + " ?");
 		}
 		if (selectedPiece.validMove(x, y, newX, newY, table, selectedPiece.getColor(), selectedPiece.getPromoted())) {
 			if (table[newX][newY].getColor() != selectedPiece.getColor()) {
-				if(table[x][y]!=null) {
-					Board capture = new Board();
-					capture.fillCapture(table[x][y]);
-				}
-				table[x][y] = new Pieces.NullPiece(null, " ", x, y);
 				
+				table[x][y] = new Pieces.NullPiece(null, null);
+				if(table[newX][newY].getPiece()!="  ") {
+					
+					capture.fillCapture(table[newX][newY]);
+				}
 				table[newX][newY] = selectedPiece;
 				Promote(table, selectedPiece);
 
@@ -33,6 +33,26 @@ public class Move {
 			return selectedPiece;
 		}
 
+	}
+	
+	
+	public void ReInsert(Piece selectedPiece, int x, int y, int newX, int newY, Piece[][] table, String player,Board board) {
+		if(player=="white") {
+			if(selectedPiece.getPiece()=="PW") {
+				for(int i=0;i <9;i++) {
+					for(int j=0;j<9;j++) {
+						if(table[newX][newY]==table[i][j]) {
+							
+						}
+						
+					}
+				}
+			}
+			table[newX][newY] = selectedPiece;
+			
+		}else if(player=="black") {
+			table[newX][newY] = selectedPiece;
+		}
 	}
 
 	public void Promote(Piece[][] table, Piece piece) {
@@ -51,7 +71,6 @@ public class Move {
 					if (response <= 2 && response >= 1) {
 						if (response == 1) {
 							piece.setPromoted(true);
-							piece.setPiece(piece.getPiece() + "+");
 							loop = false;
 						} else
 							loop = false;

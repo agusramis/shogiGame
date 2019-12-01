@@ -2,8 +2,8 @@ package Pieces;
 
 public class Silver extends Piece {
 
-	public Silver(String s, String color, int x, int y) {
-		super(s, color, x, y);
+	public Silver(String s, String color) {
+		super(s, color);
 		// TODO Auto-generated constructor stub
 	}
 	@Override

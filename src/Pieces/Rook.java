@@ -2,8 +2,8 @@ package Pieces;
 
 public class Rook extends Piece{
 
-	public Rook(String s, String color, int x, int y) {
-		super(s, color, x, y);
+	public Rook(String s, String color) {
+		super(s, color);
 		// TODO Auto-generated constructor stub
 	}
 	

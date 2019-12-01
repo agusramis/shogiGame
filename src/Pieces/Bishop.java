@@ -2,8 +2,8 @@ package Pieces;
 
 public class Bishop extends Piece{
 
-	public Bishop(String s, String color, int x, int y) {
-		super(s, color, x, y);
+	public Bishop(String s, String color) {
+		super(s, color);
 		// TODO Auto-generated constructor stub
 	}
 	@Override
