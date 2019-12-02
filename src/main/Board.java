@@ -161,11 +161,11 @@ public class Board {
 		if(Player=="black") {
 		System.out.println("---------------");
 		System.out.println("Capture Pieces:");
-		System.out.print("9|");
+		System.out.print("9: ");
 		for (int i = 0; i < captureBlack.size(); i++) {
 			
 			if(captureBlack.get(i).getPiece()!="  ") {
-				System.out.print(captureBlack.get(i).getPiece()+ " |");
+				System.out.print(i+":"+captureBlack.get(i).getPiece()+" ");
 				
 			}
 			
@@ -174,11 +174,11 @@ public class Board {
 	}else if(Player=="white") {
 		System.out.println("---------------");
 	System.out.println("Capture Pieces:");
-	System.out.print("9|");
+	System.out.print("9: ");
 	for (int i = 0; i < captureWhite.size(); i++) {
 		
 		if(captureWhite.get(i).getPiece()!="  ") {
-			System.out.print(captureWhite.get(i).getPiece()+ " |");
+			System.out.print(i+":"+captureBlack.get(i).getPiece()+" ");
 			
 		}
 		

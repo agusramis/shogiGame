@@ -27,4 +27,30 @@ public class Gold extends Piece{
 			System.out.println("Invalid Gold Move");
 			return false;}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public Boolean validMoveSinMensajes(int x,int y, int newX, int newY,Piece[][] table,String color,Boolean promoted) {
+		if((Math.abs(x-newX)<=1)&&(Math.abs(y-newY)<=1)) {
+			if((color=="white") && ((newX-x)==-1)) {
+				if(newY!=y) {
+				return false;}
+				
+			}else if((color=="black") && ((newX-x)==1)) {
+				if(newY!=y) {
+				return false;}
+				
+			}
+			return true;
+			
+		}else {
+			return false;}
+	}
 }

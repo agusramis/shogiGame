@@ -14,6 +14,9 @@ public abstract class Piece {
     public Boolean validMove( int x, int y, int newX, int newY, Piece[][] table, String color, Boolean promoted) {
 		return null;
 	}
+    public Boolean validMoveSinMensajes( int x, int y, int newX, int newY, Piece[][] table, String color, Boolean promoted) {
+		return null;
+	}
   
 	public String getPiece() {
 		if(piece==null) {

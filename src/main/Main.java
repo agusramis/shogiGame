@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+import Pieces.King;
 import Pieces.Piece;
 
 public class Main {
@@ -19,15 +20,20 @@ public void Game() {
 	Board board = new Board();
 	Scanner input = new Scanner(System.in);
 	Piece table[][] = new Piece [9][9];
-	
+	Main main = new Main();
 	
 	board.fillBoard(table);
 	board.initCaptureBlack();
 	board.initCaptureWhite();
 	
 	 while (salir) {
+		 Boolean jaque =false;
 		
 		board.PrintBoard(table,currentPlayer);
+		if(main.jaque(board, table,currentPlayer)) {
+			System.out.print("Your King is in jaque");
+			jaque=true;
+		}
 		System.out.print(currentPlayer+" turn ");
 		System.out.println("From (row col):");
 		Move move = new Move();
@@ -45,6 +51,7 @@ public void Game() {
 				break a;
 			}	
 			}
+			
 			else {		
 				if(table[x][y].getPiece()=="  ") {
 			System.out.println("There are no pieces here!");
@@ -69,15 +76,15 @@ public void Game() {
 				int newY = Integer.parseInt(positionNueva[1]);
 				
 				if(x==9) {
-					if(move.ReInsert(selectedPiece,x, y, newX, newY, table, currentPlayer,board)) {
+					if(move.ReInsert(selectedPiece,x, y, newX, newY, table, currentPlayer,board, jaque)) {
 						board.CaptureRemove(y, currentPlayer);
 						if(currentPlayer=="white") {
 							currentPlayer="black";
 						}else {currentPlayer="white";}
 					}
 				}else {
-				if(move.MoveOn(selectedPiece,x, y, newX, newY, table, currentPlayer,board)) {
-					
+				if(move.MoveOn(selectedPiece,x, y, newX, newY, table, currentPlayer,board,jaque)) {
+				
 					if(currentPlayer=="white") {
 						currentPlayer="black";
 					}else {currentPlayer="white";}
@@ -105,6 +112,54 @@ public void Game() {
 		salir=false;}
 	}
 
-	
+
+	public boolean jaque( Board board, Piece[][] table,String player) {
+		int newX=0;
+		int newY=0;
+		
+		if(player =="white") {
+		for(int i =0;i<9;i++) {
+			for(int j=0;j<9;j++) {
+			if(table[i][j].getPiece()=="KW") {
+				newX=i;
+				newY=j;
+			}}}
+		
+		for(int i =0;i<9;i++) {
+			for(int j=0;j<9;j++) {
+				try{
+					if((table[i][j].getColor()!="white")&&(table[i][j].getPiece()!="  ")) {
+					if(table[i][j].validMoveSinMensajes(i, j, newX, newY, table, table[i][j].getColor(), table[i][j].getPromoted())) {
+					return true;
+				}}				
+			}catch(Exception e) {
+				
+			}}}}
+		else {
+			for(int i =0;i<9;i++) {
+			for(int j=0;j<9;j++) {
+			if(table[i][j].getPiece()=="KB") {
+				newX=i;
+				newY=j;
+			}}}
+		
+		for(int i =0;i<9;i++) {
+			for(int j=0;j<9;j++) {
+				try{
+					if((table[i][j].getColor()!="black")&&(table[i][j].getPiece()!="  ")) {
+					if(table[i][j].validMoveSinMensajes(i, j, newX, newY, table, table[i][j].getColor(), table[i][j].getPromoted())) {
+				
+					return true;
+				}}				
+			}catch(Exception e) {
+				
+			}}}
+			
+		}
+			
+		
+		return false;
+		
+	}
 
 }

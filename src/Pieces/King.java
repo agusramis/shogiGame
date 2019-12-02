@@ -15,4 +15,13 @@ public class King extends Piece{
 			return false;
 		}
 		}
+	@Override
+	public Boolean validMoveSinMensajes(int x,int y, int newX, int newY,Piece[][] table,String color,Boolean promoted) {
+		if((Math.abs(x-newX)<=1)&&(Math.abs(y-newY)<=1)) {
+			return true;}
+		else {
+
+			return false;
+		}
+		}
 }

@@ -60,4 +60,59 @@ public class Lance extends Piece{
 			return false;}
 		
 	}
+	
+	@Override
+	public Boolean validMoveSinMensajes(int x,int y, int newX, int newY,Piece[][] table,String color,Boolean promoted) {
+		if(promoted==true) {
+			if((Math.abs(x-newX)<=1)&&(Math.abs(y-newY)<=1)) {
+				if((color=="white") && ((newX-x)==-1)) {
+					if(newY!=y) {
+		
+					return false;}
+					
+				}else if((color=="black") && ((newX-x)==1)) {
+					if(newY!=y) {
+					
+					return false;}
+					
+				}
+				return true;
+				
+			}else {
+			
+				return false;}
+		}
+		
+		
+		if(color=="white") {
+		if((newX-x>0)&& (Math.abs(y-newY)==0)) {
+			for(int i=x+1;i<newX;i++) {
+				if((table[i][y].getPiece()!="  ")) {
+				
+					 return false;
+				 }
+			
+		}return true;
+		}else {
+			
+			return false;}
+		
+		
+		}else if(color=="black") {
+			
+		}
+		if((x-newX>0)&& (Math.abs(y-newY)==0)) {
+			for(int i=x- 1;i>newX;i--) {
+				
+				if((table[i][y].getPiece()!="  ")&&(table[i][y].getColor()==color)) {
+				
+					 return false;
+				 }
+			
+		}return true;
+		}else {
+
+			return false;}
+		
+	}
 }

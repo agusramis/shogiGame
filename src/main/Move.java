@@ -8,7 +8,7 @@ public class Move {
 	}
 
 	public Boolean MoveOn(Piece selectedPiece, int x, int y, int newX, int newY, Piece[][] table, String player,
-			Board capture) {
+			Board capture, Boolean jaque) {
 		if((selectedPiece.getPiece()!="PW")&&(selectedPiece.getPiece()!="PB")&&(selectedPiece.getPiece()!="LB")&&(selectedPiece).getPiece()!="LW")
 			{		Promote(table, selectedPiece);}
 			
@@ -25,7 +25,23 @@ public class Move {
 					}
 					capture.fillCapture(table[newX][newY]);
 				}
+				if(jaque) {
+					Main main= new Main();
+					if(main.jaque(capture, table, player)) {
+						table[x][y]= selectedPiece;
+						return false;
+					}else table[newX][newY] = selectedPiece;;
+				}
+				Main main = new Main();
+				
 				table[newX][newY] = selectedPiece;
+				if(main.jaque(capture, table, player)) {
+					
+					table[newX][newY] = new Pieces.NullPiece(null, null);
+					table[x][y]= selectedPiece;
+					System.out.println("You can´t Move Here because you will be in jaque ");
+					return false;
+				}
 				Promote(table, selectedPiece);
 
 				return true;
@@ -42,7 +58,7 @@ public class Move {
 	}
 
 	public Boolean ReInsert(Piece selectedPiece, int x, int y, int newX, int newY, Piece[][] table, String player,
-			Board board) {
+			Board board, Boolean jaque) {
 		if (player == "white") {
 			if (table[newX][newY].getPiece() == "  ") {
 				if (selectedPiece.getPiece() == "PW") {
@@ -57,6 +73,14 @@ public class Move {
 							return false;
 						}
 					}
+					if(jaque) {
+						Main main= new Main();
+						if(main.jaque(board, table, player)) {
+							System.out.println("Your King is under atack ");
+						return false;
+						}else table[newX][newY] = selectedPiece;
+						return true;
+					}else 
 					table[newX][newY] = selectedPiece;
 					return true;
 				}
@@ -70,7 +94,13 @@ public class Move {
 					if((table[newX][newY]==table[8][i])) {
 					System.out.println("You can´t put LW in this row ");
 					return false;}
-				}}
+				}}if(jaque) {
+					Main main= new Main();
+					if(main.jaque(board, table, player)) {
+						System.out.println("Your King is under atack ");
+					return false;
+					}else table[newX][newY] = selectedPiece; return true;
+				}
 				table[newX][newY] = selectedPiece;
 				return true;
 			}System.out.println("There is a piece in this position ");
@@ -88,6 +118,12 @@ public class Move {
 							System.out.println("You can´t put PW in this row ");
 							return false;
 						}
+					}if(jaque) {
+						Main main= new Main();
+						if(main.jaque(board, table, player)) {
+							System.out.println("Your King is under atack ");
+						return false;
+						}else table[newX][newY] = selectedPiece; return true;
 					}
 					table[newX][newY] = selectedPiece;
 					return true;
@@ -105,6 +141,12 @@ public class Move {
 						return false;}
 					}
 					
+				}if(jaque) {
+					Main main= new Main();
+					if(main.jaque(board, table, player)) {
+						
+					return false;
+					}else table[newX][newY] = selectedPiece; return true;
 				}
 				table[newX][newY] = selectedPiece;
 				return true;

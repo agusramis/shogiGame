@@ -46,4 +46,42 @@ public class Knight extends Piece{
 		System.out.println("Invalid Knight Move");
 		return false;
 	}
+	
+	@Override
+	public Boolean validMoveSinMensajes(int x,int y, int newX, int newY,Piece[][] table,String color,Boolean promoted) {
+		if(promoted==true) {
+			if((Math.abs(x-newX)<=1)&&(Math.abs(y-newY)<=1)) {
+				if((color=="white") && ((newX-x)==-1)) {
+					if(newY!=y) {
+					return false;}
+					
+				}else if((color=="black") && ((newX-x)==1)) {
+					if(newY!=y) {
+					return false;}
+					
+				}
+				return true;
+				
+			}else {
+				return false;}
+		}
+	
+		
+		
+		if(color=="white") {
+			if((newX-x==2)&&(Math.abs(y-newY)==1)) {
+				return true;
+				
+			}
+			
+		}else if(color=="black") {
+			if((x-newX==2)&&(Math.abs(y-newY)==1)) {
+				return true;
+				
+			}
+			
+		}
+
+		return false;
+	}
 }
