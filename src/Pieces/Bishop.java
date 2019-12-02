@@ -22,8 +22,8 @@ public class Bishop extends Piece{
 		int dX = newX > x ? 1 : -1;
 		int dY = newY > y ? 1 : -1;
 		 for(int i =1; i<Math.abs(y-newY);i++) {
-			 if((table[x+dX*i][y+dY*i].getPiece()!=null) &&(table[x+dX*i][y+dY*i].getColor()==color) ) {
-			System.out.println("You can´t eat your own Piece"); 
+			 if((table[x+dX*i][y+dY*i].getPiece()!="  ")) {
+			System.out.println("There is a piece Before"); 
 			 return false;
 		 }
 			 }return true;

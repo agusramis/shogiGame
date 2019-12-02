@@ -31,9 +31,9 @@ public class Lance extends Piece{
 		
 		if(color=="white") {
 		if((newX-x>0)&& (Math.abs(y-newY)==0)) {
-			for(int i=1;i<Math.abs(x-newX);i++) {
-				if((table[x-i][y].getPiece()!=null)&&(table[x-i][y].getColor()==color)) {
-					 System.out.println("You can´t eat your own Piece");
+			for(int i=x+1;i<newX;i++) {
+				if((table[i][y].getPiece()!="  ")) {
+					 System.out.println("There is a piece before");
 					 return false;
 				 }
 			
@@ -47,10 +47,10 @@ public class Lance extends Piece{
 			
 		}
 		if((x-newX>0)&& (Math.abs(y-newY)==0)) {
-			for(int i=1;i<Math.abs(x-newX);i++) {
+			for(int i=x- 1;i>newX;i--) {
 				
-				if((table[x-i][y].getPiece()!=null)&&(table[x-i][y].getColor()==color)) {
-					 System.out.println("You can´t eat your own Piece");
+				if((table[i][y].getPiece()!="  ")&&(table[i][y].getColor()==color)) {
+					 System.out.println("There is a piece before");
 					 return false;
 				 }
 			

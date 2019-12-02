@@ -1,3 +1,4 @@
+package main;
 import java.util.Scanner;
 
 import Pieces.Piece;
@@ -8,8 +9,8 @@ public class Move {
 
 	public Boolean MoveOn(Piece selectedPiece, int x, int y, int newX, int newY, Piece[][] table, String player,
 			Board capture) {
-
-		Promote(table, selectedPiece);
+		if((selectedPiece.getPiece()!="PW")&&(selectedPiece.getPiece()!="PB")&&(selectedPiece.getPiece()!="LB")&&(selectedPiece).getPiece()!="LW")
+			{		Promote(table, selectedPiece);}
 			
 		
 		if (selectedPiece.validMove(x, y, newX, newY, table, selectedPiece.getColor(), selectedPiece.getPromoted())) {
@@ -17,7 +18,11 @@ public class Move {
 
 				table[x][y] = new Pieces.NullPiece(null, null);
 				if (table[newX][newY].getPiece() != "  ") {
-					if(table[newX][newY].getPiece()=="KW")
+					if((table[newX][newY].getPiece()=="KW")||(table[newX][newY].getPiece()=="KB")) {
+						Main main = new Main();
+						main.killKing(table[newX][newY]);
+						return false;
+					}
 					capture.fillCapture(table[newX][newY]);
 				}
 				table[newX][newY] = selectedPiece;
@@ -47,10 +52,25 @@ public class Move {
 							System.out.println("There is another PW in this col ");
 							return false;
 						}
+						if(table[newX][newY]==table[8][i]) {
+							System.out.println("You can´t put PW in this row ");
+							return false;
+						}
 					}
 					table[newX][newY] = selectedPiece;
 					return true;
 				}
+				if(selectedPiece.getPiece() == "CW") {
+					for (int i = 0; i < 9; i++) {
+					if((table[newX][newY]==table[8][i])||(table[newX][newY]==table[7][i])) {
+					System.out.println("You can´t put CW in this row ");
+					return false;}
+				}}
+				if(selectedPiece.getPiece() == "LW"){for (int i = 0; i < 9; i++) {
+					if((table[newX][newY]==table[8][i])) {
+					System.out.println("You can´t put LW in this row ");
+					return false;}
+				}}
 				table[newX][newY] = selectedPiece;
 				return true;
 			}System.out.println("There is a piece in this position ");
@@ -64,9 +84,27 @@ public class Move {
 							System.out.println("There is another PB in this col ");
 							return false;
 						}
+						if(table[newX][newY]==table[0][i]) {
+							System.out.println("You can´t put PW in this row ");
+							return false;
+						}
 					}
 					table[newX][newY] = selectedPiece;
 					return true;
+				}
+				if(selectedPiece.getPiece() == "LB") {
+					for (int i = 0; i < 9; i++) {
+					if(table[newX][newY]==table[0][i]) {
+					System.out.println("You can´t put LB in this row ");
+					return false;}
+				}}
+				if(selectedPiece.getPiece() == "CB") {
+					for (int i = 0; i < 9; i++) {
+						if((table[newX][newY]==table[0][i])||(table[newX][newY]==table[1][i])) {
+						System.out.println("You can´t put CB in this row ");
+						return false;}
+					}
+					
 				}
 				table[newX][newY] = selectedPiece;
 				return true;
@@ -82,7 +120,7 @@ public class Move {
 			Scanner input = new Scanner(System.in);
 			int response = 0;
 			boolean loop = true;
-			while (loop) {
+			while (loop) {	
 				System.out.println("Do you want to promote your piece " + piece.getPiece() + " ?");
 				System.out.println("1:YES, 2:NO");
 				if (!input.hasNextInt() || !input.hasNext()) {
@@ -115,6 +153,15 @@ public class Move {
 			for (int i = 0; i < table.length; i++) {
 				for (int j = 0; j < table.length; j++) {
 					if (piece == table[0][j] || piece == table[1][j] || piece == table[2][j]) {
+						if((piece.getPiece()=="BB"||piece.getPiece()=="LB")&&piece==table[0][j]) {
+							piece.setPromoted(true);
+							return false;
+							
+						}
+						if((piece.getPiece()=="CB")&&(piece==table[1][j]||piece==table[0][j])) {
+							piece.setPromoted(true);
+							return false;
+						}
 						return true;
 					}
 				}
@@ -123,6 +170,15 @@ public class Move {
 			for (int i = 0; i < table.length; i++) {
 				for (int j = 0; j < table.length; j++) {
 					if (piece == table[6][j] || piece == table[7][j] || piece == table[8][j]) {
+						if((piece.getPiece()=="BW"||piece.getPiece()=="LW")&&piece==table[8][j]) {
+							piece.setPromoted(true);
+							return false;
+							
+						}	if((piece.getPiece()=="CW")&&(piece==table[1][j]||piece==table[0][j])) {
+							piece.setPromoted(true);
+							return false;
+						}
+						
 						return true;
 					}
 				}

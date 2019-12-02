@@ -1,3 +1,4 @@
+package main;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -6,7 +7,7 @@ import Pieces.Piece;
 
 public class Main {
 	public static  String currentPlayer ="white";
-	
+	public static Boolean salir = true;
 	public static void main(String[] args) {
 		Main main = new Main();
 		main.Game();
@@ -16,11 +17,10 @@ public class Main {
 	}
 public void Game() {
 	Board board = new Board();
-	
 	Scanner input = new Scanner(System.in);
 	Piece table[][] = new Piece [9][9];
 	
-	Boolean salir = true;
+	
 	board.fillBoard(table);
 	board.initCaptureBlack();
 	board.initCaptureWhite();
@@ -97,6 +97,12 @@ public void Game() {
 		
 	}
 		
+	}public void killKing(Piece p) {
+		if(p.getColor()=="white") {
+			System.out.println("Black Wins" );
+			salir=false;
+		}else {System.out.println("White Wins" );
+		salir=false;}
 	}
 
 	
