@@ -25,7 +25,7 @@ public void Game() {
 	board.initCaptureBlack();
 	board.initCaptureWhite();
 	
-	while (salir) {
+	 while (salir) {
 		
 		board.PrintBoard(table,currentPlayer);
 		System.out.print(currentPlayer+" turn ");
@@ -33,17 +33,31 @@ public void Game() {
 		Move move = new Move();
 		String posicionInicial= input.nextLine();
 		
-		try {
+		a:try {
 		if(posicionInicial.contains(" ")) {
 			Piece selectedPiece=null;
 			String[] position = posicionInicial.trim().split(" ");
 			int x = Integer.parseInt(position[0]);
 			int y = Integer.parseInt(position[1]);
 			if(x==9) {
-				selectedPiece = board.ReInsertCapture(y);}
-			else {			
+				selectedPiece = board.ReInsertCapture(y, currentPlayer);
+			if(selectedPiece==null) {
+				break a;
+			}	
+			}
+			else {		
+				if(table[x][y].getPiece()=="  ") {
+			System.out.println("There are no pieces here!");
+				break a;
+			}else
 				selectedPiece = table[x][y];}
-
+			
+			
+			
+			if(selectedPiece.getColor()!=currentPlayer) {
+				System.out.println("That's not your piece");
+				break a;
+			}
 			move.isPromote(table, selectedPiece);
 			System.out.println("You select "+selectedPiece.getPiece());
 			System.out.println("NewPostion (row col):");
@@ -55,13 +69,22 @@ public void Game() {
 				int newY = Integer.parseInt(positionNueva[1]);
 				
 				if(x==9) {
-					move.ReInsert(selectedPiece,x, y, newX, newY, table, currentPlayer,board);
+					if(move.ReInsert(selectedPiece,x, y, newX, newY, table, currentPlayer,board)) {
+						board.CaptureRemove(y, currentPlayer);
+						if(currentPlayer=="white") {
+							currentPlayer="black";
+						}else {currentPlayer="white";}
+					}
 				}else {
-				move.MoveOn(selectedPiece,x, y, newX, newY, table, currentPlayer,board);}
+				if(move.MoveOn(selectedPiece,x, y, newX, newY, table, currentPlayer,board)) {
+					
+					if(currentPlayer=="white") {
+						currentPlayer="black";
+					}else {currentPlayer="white";}
+					
+				}}
 				
-				if(currentPlayer=="white") {
-					currentPlayer="black";
-				}else {currentPlayer="white";}
+			
 				
 				
 			}	

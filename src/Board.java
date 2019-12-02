@@ -80,19 +80,52 @@ public class Board {
 			captureWhite.add(i, new Pieces.NullPiece(null,null));
 		}
 	}
-	public Piece ReInsertCapture(int select) {
+	public Piece ReInsertCapture(int select, String player) {
+		if(player =="black") {
 		for (int i = 0; i < 20; i++) {
-			if(captureBlack.get(i)==captureBlack.get(select)) {
-				return captureBlack.get(select);
+			
+			if(captureBlack.get(i)==captureBlack.get(select)&&(captureBlack.get(i).getPiece()!="  ")) {
+				Piece selected = captureBlack.get(i);
+				return selected;
 				
 				
-			}
-		}
+			}}	
+				System.out.println("Try again");
+				return null;
+		}else if(player=="white") {
+			for (int i = 0; i < 20; i++) {
+				if(captureWhite.get(i)==captureWhite.get(select)&&(captureWhite.get(i).getPiece()!="  ")) {
+					Piece selected =captureWhite.get(select);
+					return selected;
+					
+					
+				}
+		}System.out.println("Try again");
+		return null;}
+		else
+		
 			System.out.println("Try again");
 			return null;
 		
 		
 		
+	}
+	
+	public void CaptureRemove( int select,String player) {
+		if(player =="black") {
+			for (int i = 0; i < 20; i++) {
+
+				if(captureBlack.get(i)==captureBlack.get(select)&&(captureBlack.get(i).getPiece()!="  ")) {
+					captureBlack.remove(i);
+				}}
+			}
+		else if(player=="white") {
+				for (int i = 0; i < 20; i++) {
+					if(captureWhite.get(i)==captureWhite.get(select)&&(captureWhite.get(i).getPiece()!="  ")) {
+						captureWhite.remove(i);
+					}
+			}}
+
 	}
 	  public void fillCapture(Piece pieceCapture) {
 		  if(pieceCapture.getPromoted()==true) {
