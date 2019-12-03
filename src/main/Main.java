@@ -31,7 +31,7 @@ public void Game() {
 		
 		board.PrintBoard(table,currentPlayer);
 		if(main.jaque(board, table,currentPlayer)) {
-			System.out.print("Your King is in jaque");
+			System.out.print("Your King is in jaque ");
 			jaque=true;
 		}
 		System.out.print(currentPlayer+" turn ");

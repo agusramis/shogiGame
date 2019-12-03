@@ -26,11 +26,14 @@ public class Move {
 					capture.fillCapture(table[newX][newY]);
 				}
 				if(jaque) {
+					table[newX][newY] = selectedPiece;
 					Main main= new Main();
 					if(main.jaque(capture, table, player)) {
+						
 						table[x][y]= selectedPiece;
+						System.out.println("You can´t Move Here because you will be in jaque ");
 						return false;
-					}else table[newX][newY] = selectedPiece;;
+					}else table[newX][newY] = selectedPiece;
 				}
 				Main main = new Main();
 				
