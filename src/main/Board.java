@@ -178,7 +178,7 @@ public class Board {
 	for (int i = 0; i < captureWhite.size(); i++) {
 		
 		if(captureWhite.get(i).getPiece()!="  ") {
-			System.out.print(i+":"+captureBlack.get(i).getPiece()+" ");
+			System.out.print(i+":"+captureWhite.get(i).getPiece()+" ");
 			
 		}
 		
